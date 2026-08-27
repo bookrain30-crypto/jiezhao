@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html lang="de" data-editable-export="1"><head>
+<html lang="de" data-static-export="1"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>03 · Brand &amp; Trust · Jie Zhao</title>
@@ -249,7 +249,7 @@ body[data-page="social"] .hero h1{
   text-wrap:normal;
 }
 body[data-page="social"] .hero h1 .title-line{display:inline!important}
-body[data-page="social"] .hero h1 .title-line+.title-line::before{content:" "}
+body[data-page="social"] .hero h1 .title-line+.title-line::before{content:""}
 body[data-page="social"] .section-head h2{
   margin:6px 0 5px!important;
   font-size:clamp(29px,2.55vw,37px)!important;
@@ -579,26 +579,6 @@ body[data-page="social"] .ecosystem-stat .value{
 body[data-page="social"] .ecosystem-stat .label{align-self:start!important;margin-top:9px!important}
 body[data-page="social"] .bts-grid.simple .bts-card p{display:none!important}
 
-/* Query-only editing surface. The recruiter-facing version remains untouched. */
-.portfolio-edit-bar{
-  position:fixed;z-index:9999;right:16px;bottom:16px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;
-  max-width:calc(100vw - 32px);padding:9px;border:1px solid rgba(23,57,47,.18);border-radius:18px;
-  background:rgba(255,253,248,.96);backdrop-filter:blur(16px);box-shadow:0 18px 48px rgba(23,57,47,.18);
-  font-family:Arial,Helvetica,sans-serif;
-}
-.portfolio-edit-bar strong{padding:0 7px;color:#17392f;font-size:11px;letter-spacing:.08em}
-.portfolio-edit-bar button{
-  border:1px solid rgba(23,57,47,.16);border-radius:999px;background:#fffdf8;color:#17392f;
-  padding:9px 12px;font-size:11px;font-weight:800;cursor:pointer;
-}
-.portfolio-edit-bar button:hover{background:#edf3ee}
-.portfolio-edit-bar .primary{background:#17392f;color:#fff;border-color:#17392f}
-.portfolio-edit-status{min-width:60px;padding:0 7px;color:#c96f52;font-size:10px}
-body.portfolio-edit-mode [data-local-edit-id]{cursor:text;transition:outline-color .15s ease,background .15s ease}
-body.portfolio-edit-mode [data-local-edit-id]:hover{outline:1px dashed rgba(201,111,82,.62);outline-offset:3px}
-body.portfolio-edit-mode [data-local-edit-id]:focus{outline:2px solid #c96f52;outline-offset:3px;background:rgba(255,253,248,.58)}
-body.portfolio-edit-mode img[data-editable-image]{cursor:crosshair!important}
-body.portfolio-edit-mode img[data-editable-image]:hover{outline:3px solid rgba(201,111,82,.72);outline-offset:-3px;filter:saturate(.92)}
 /* DETAIL_SYSTEM_V21_END */
 
 @media(max-width:980px){
@@ -635,7 +615,6 @@ body.portfolio-edit-mode img[data-editable-image]:hover{outline:3px solid rgba(2
   body[data-page="gtm"] .project-meta-strip{grid-template-columns:1fr}
   body[data-page="gtm"] .project-meta-item+.project-meta-item{border-left:0;border-top:1px solid rgba(23,57,47,.12)}
   body[data-page="brand"] nav .navlinks{display:none!important}
-  .portfolio-edit-bar{left:10px;right:10px;bottom:10px}
 }
 @media(max-width:900px){
   .balanced-section-head{grid-template-columns:1fr!important;gap:18px!important}
@@ -643,11 +622,7 @@ body.portfolio-edit-mode img[data-editable-image]:hover{outline:3px solid rgba(2
 @media(prefers-reduced-motion:reduce){
   .animated-number,.bts-card,.stream-card,.ecosystem-stat,.stream-media img{animation:none!important;transition:none!important;transform:none!important;opacity:1!important}
 }
-</style><style id="portfolio-image-scale-style">
-    img[style*="--portfolio-edit-scale"]{transform:scale(var(--portfolio-edit-scale))!important;transform-origin:center!important}
-    .portfolio-edit-mode img[data-editable-image]{cursor:pointer}
-    .portfolio-edit-mode img.portfolio-edit-selected{outline:4px solid #f28c28;outline-offset:-4px}
-    .portfolio-edit-image-tools{display:inline-flex;gap:6px;flex-wrap:wrap}</style></head>
+</style><style id="portfolio-image-scale-style">img[style*="--portfolio-edit-scale"]{transform:scale(var(--portfolio-edit-scale))!important;transform-origin:center!important}</style></head>
 <body data-page="brand" class="unified-portfolio">
 <nav><div class="wrap navbar"><a class="brand" href="index.html">Jie Zhao</a><div class="navlinks"><a href="index.html#how">← How I Work</a><a href="#website">Website</a><a href="#youtube">YouTube</a><a href="#partner">Brand &amp; Partner</a></div></div></nav>
 <main class="wrap">
@@ -783,230 +758,5 @@ body.portfolio-edit-mode img[data-editable-image]:hover{outline:3px solid rgba(2
     numbers.forEach(element => numberObserver.observe(element));
   }
 })();
-</script><script id="portfolio-edit-mode">
-(() => {
-  const root = document.documentElement;
-  const params = new URLSearchParams(window.location.search);
-  const enabled = params.get('edit') === '1' || root.dataset.editableExport === '1';
-  if (!enabled) return;
-
-  const body = document.body;
-  const page = body.dataset.page || 'portfolio';
-  const storagePrefix = `jie_portfolio_edit_${page}_`;
-  body.classList.add('portfolio-edit-mode');
-
-  const imageScaleStyle = document.createElement('style');
-  imageScaleStyle.id = 'portfolio-image-scale-style';
-  imageScaleStyle.textContent = `
-    img[style*="--portfolio-edit-scale"]{transform:scale(var(--portfolio-edit-scale))!important;transform-origin:center!important}
-    .portfolio-edit-mode img[data-editable-image]{cursor:pointer}
-    .portfolio-edit-mode img.portfolio-edit-selected{outline:4px solid #f28c28;outline-offset:-4px}
-    .portfolio-edit-image-tools{display:inline-flex;gap:6px;flex-wrap:wrap}`;
-  document.head.appendChild(imageScaleStyle);
-
-  const textSelector = [
-    'h1','h2','h3','h4','p','blockquote','.eyebrow','.section-sub','.section-kicker',
-    '.chapter','.subtitle','.role-text','.channel-title','.channel-desc','.slabel','.svalue',
-    '.stext','.lab','.value','.tag','.chip','.core-label','.idea-label','.stream-title',
-    '.stream-desc','.portfolio-next-meta','.portfolio-next-title','.portfolio-next-desc',
-    '.next-how-meta','.next-how-title','.next-how-desc','.site-domain','.site-audience',
-    '.project-meta-value'
-  ].join(',');
-  const blocked = '.portfolio-edit-bar,nav,button,script,style,.media-controls';
-  const textTargets = [...document.querySelectorAll(textSelector)].filter(element => !element.closest(blocked));
-
-  const setStatus = message => {
-    const status = document.querySelector('.portfolio-edit-status');
-    if (!status) return;
-    status.textContent = message;
-    window.clearTimeout(setStatus.timer);
-    setStatus.timer = window.setTimeout(() => { status.textContent = '自动保存'; }, 1500);
-  };
-
-  textTargets.forEach((element, index) => {
-    const id = `text-${index}`;
-    const key = `${storagePrefix}${id}`;
-    element.dataset.localEditId = id;
-    element.contentEditable = 'true';
-    element.spellcheck = true;
-    try {
-      const saved = localStorage.getItem(key);
-      if (saved !== null) element.innerHTML = saved;
-    } catch (_) {}
-    element.addEventListener('input', () => {
-      try { localStorage.setItem(key, element.innerHTML); } catch (_) {}
-      setStatus('已保存');
-    });
-    element.addEventListener('click', event => event.stopPropagation());
-  });
-
-  const imageTargets = [...document.querySelectorAll('main img,header img,section img')]
-    .filter(image => !image.closest('.portfolio-edit-bar'));
-  imageTargets.forEach((image, index) => {
-    const id = `image-${index}`;
-    image.dataset.editableImage = '1';
-    image.dataset.editorImageId = id;
-    try {
-      const saved = localStorage.getItem(`${storagePrefix}${id}`);
-      if (saved) image.src = saved;
-      const savedScale = localStorage.getItem(`${storagePrefix}${id}_scale`);
-      const scaleProperty = image.classList.contains('media-image') ? '--img-scale' : '--portfolio-edit-scale';
-      if (savedScale) image.style.setProperty(scaleProperty, savedScale);
-    } catch (_) {}
-  });
-
-  const picker = document.createElement('input');
-  picker.type = 'file';
-  picker.accept = 'image/*,.gif,.webp';
-  picker.hidden = true;
-  picker.className = 'portfolio-edit-picker';
-  document.body.appendChild(picker);
-  let activeImage = null;
-  document.addEventListener('click', event => {
-    const image = event.target.closest('img[data-editable-image]');
-    if (!image || !body.classList.contains('portfolio-edit-mode')) return;
-    event.preventDefault();
-    event.stopPropagation();
-    document.querySelectorAll('img.portfolio-edit-selected').forEach(item => item.classList.remove('portfolio-edit-selected'));
-    activeImage = image;
-    activeImage.classList.add('portfolio-edit-selected');
-    setStatus('已选中照片；请使用下方照片按钮');
-  }, true);
-  picker.addEventListener('change', () => {
-    const file = picker.files && picker.files[0];
-    if (!file || !activeImage) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      activeImage.src = String(reader.result || '');
-      try { localStorage.setItem(`${storagePrefix}${activeImage.dataset.editorImageId}`, activeImage.src); }
-      catch (_) { setStatus('图片较大，请下载保存'); return; }
-      setStatus('图片已保存');
-    };
-    reader.readAsDataURL(file);
-  });
-
-  const bar = document.createElement('div');
-  bar.className = 'portfolio-edit-bar';
-  bar.innerHTML = `
-    <strong>编辑模式</strong>
-    <span class="portfolio-edit-image-tools">
-      <button type="button" data-editor-action="replace-image">替换照片</button>
-      <button type="button" data-editor-action="image-smaller">照片－</button>
-      <button type="button" data-editor-action="image-bigger">照片＋</button>
-      <button type="button" data-editor-action="image-reset">重置照片</button>
-    </span>
-    <button type="button" class="primary" data-editor-action="save">保存</button>
-    <button type="button" data-editor-action="download">下载 HTML</button>
-    <button type="button" data-editor-action="reset">重置本页</button>
-    <button type="button" data-editor-action="close">关闭</button>
-    <span class="portfolio-edit-status">自动保存</span>`;
-  document.body.appendChild(bar);
-
-  const requireActiveImage = () => {
-    if (activeImage) return true;
-    setStatus('请先点击一张照片');
-    return false;
-  };
-
-  const changeImageScale = delta => {
-    if (!requireActiveImage()) return;
-    const scaleProperty = activeImage.classList.contains('media-image') ? '--img-scale' : '--portfolio-edit-scale';
-    const current = parseFloat(activeImage.style.getPropertyValue(scaleProperty)) || 1;
-    const next = Math.max(.35, Math.min(3, Math.round((current + delta) * 100) / 100));
-    activeImage.style.setProperty(scaleProperty, String(next));
-    try { localStorage.setItem(`${storagePrefix}${activeImage.dataset.editorImageId}_scale`, String(next)); } catch (_) {}
-    setStatus(`照片大小 ${Math.round(next * 100)}%`);
-  };
-
-  const resetImageScale = () => {
-    if (!requireActiveImage()) return;
-    const scaleProperty = activeImage.classList.contains('media-image') ? '--img-scale' : '--portfolio-edit-scale';
-    activeImage.style.removeProperty(scaleProperty);
-    try { localStorage.removeItem(`${storagePrefix}${activeImage.dataset.editorImageId}_scale`); } catch (_) {}
-    setStatus('照片大小已重置');
-  };
-
-  const saveAll = () => {
-    textTargets.forEach(element => {
-      try { localStorage.setItem(`${storagePrefix}${element.dataset.localEditId}`, element.innerHTML); } catch (_) {}
-    });
-    setStatus('已保存');
-  };
-
-  const blobToDataUrl = blob => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result || ''));
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  });
-
-  const downloadHtml = async () => {
-    saveAll();
-    setStatus('正在打包…');
-    const clone = document.documentElement.cloneNode(true);
-    clone.dataset.editableExport = '1';
-    clone.querySelector('.portfolio-edit-bar')?.remove();
-    clone.querySelector('.portfolio-edit-picker')?.remove();
-    clone.querySelectorAll('.portfolio-edit-selected').forEach(image => image.classList.remove('portfolio-edit-selected'));
-    clone.querySelectorAll('.animated-number[data-final-value]').forEach(number => {
-      number.textContent = number.dataset.finalValue;
-    });
-    const cloneImages = [...clone.querySelectorAll('img[data-editor-image-id]')];
-    for (const image of cloneImages) {
-      const source = image.getAttribute('src') || '';
-      if (!source || source.startsWith('data:')) continue;
-      try {
-        const response = await fetch(new URL(source, window.location.href));
-        if (response.ok) image.src = await blobToDataUrl(await response.blob());
-      } catch (_) {}
-    }
-    clone.querySelectorAll('[contenteditable]').forEach(element => element.removeAttribute('contenteditable'));
-    clone.querySelectorAll('[data-local-edit-id]').forEach(element => element.removeAttribute('data-local-edit-id'));
-    clone.querySelectorAll('[data-editable-image]').forEach(element => element.removeAttribute('data-editable-image'));
-    clone.querySelectorAll('[data-editor-image-id]').forEach(element => element.removeAttribute('data-editor-image-id'));
-    clone.querySelector('body')?.classList.remove('portfolio-edit-mode');
-    const serialized = '<!doctype html>\n' + clone.outerHTML;
-    const blob = new Blob(['\uFEFF', serialized], { type: 'text/html;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement('a');
-    anchor.href = url;
-    anchor.download = `${page}-editable.html`;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1800);
-    setStatus('已下载');
-  };
-
-  bar.addEventListener('click', event => {
-    const action = event.target.closest('[data-editor-action]')?.dataset.editorAction;
-    if (!action) return;
-    if (action === 'replace-image') {
-      if (!requireActiveImage()) return;
-      picker.value = '';
-      picker.click();
-    }
-    if (action === 'image-smaller') changeImageScale(-.1);
-    if (action === 'image-bigger') changeImageScale(.1);
-    if (action === 'image-reset') resetImageScale();
-    if (action === 'save') saveAll();
-    if (action === 'download') downloadHtml();
-    if (action === 'reset') {
-      if (!window.confirm('清除本页在当前浏览器中的所有编辑并恢复网站版本？')) return;
-      Object.keys(localStorage).forEach(key => { if (key.startsWith(storagePrefix)) localStorage.removeItem(key); });
-      window.location.reload();
-    }
-    if (action === 'close') {
-      if (params.get('edit') === '1') {
-        params.delete('edit');
-        const query = params.toString();
-        window.location.href = `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
-      } else {
-        body.classList.remove('portfolio-edit-mode');
-        bar.remove();
-      }
-    }
-  });
-})();
-</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2ea74bb193464e2',t:'MTc4NzMyMzg4Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; visibility: hidden;"></iframe><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; visibility: hidden;"></iframe>
+</script>
 </body></html>
